@@ -273,6 +273,12 @@ static NSString *const PaddingSymbol = @"  ";
         escapedString = [escapedString stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""];
         return [NSString stringWithFormat:@"\"%@\"",escapedString];
     }
+    
+    if ([self isKindOfClass:NSNumber.class])
+        return [(NSNumber*)self stringValue];
+    
+    if ([self isKindOfClass:NSDate.class])
+        return [[NSNumber numberWithDouble:[(NSDate*)self timeIntervalSince1970]] stringValue];
 
     if ([self isKindOfClass:NSArray.class])
         return [self JSONStringFromArray:options level:level];
